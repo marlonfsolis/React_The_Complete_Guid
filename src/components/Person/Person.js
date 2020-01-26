@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -6,10 +7,18 @@ import { Row, Col } from "react-bootstrap";
 
 export default function Person(props) {
 
-  const form = props.form;
+  const [form, setForm] = useState({
+    name: { value: props.name }
+  });
 
-  const setFormFieldValue = (name, event) => {
-    props.setFormFieldVal(name, event);
+  const setFormFieldVal = (name, event) => {
+    let myForm = { ...form };
+    myForm[name].value = event.currentTarget.value;
+    setForm(myForm);
+  };
+
+  const setPersonData = () => {
+    props.changePersonNameHandler(form);
   };
 
   return (
@@ -24,14 +33,14 @@ export default function Person(props) {
                 New Name
               </Form.Label>
               <Col sm="9">
-                <Form.Control type="text" value={form['name'].value} onChange={setFormFieldValue.bind(this, 'name')}></Form.Control>
+                <Form.Control type="text" value={form['name'].value} onChange={setFormFieldVal.bind(this, 'name')}></Form.Control>
               </Col>
             </Form.Group>
           </Form>
           <Button className="mr-2" variant="danger" onClick={props.deletePersonHandler}>
             Delete
           </Button>
-          <Button variant="success">
+          <Button variant="success" onClick={setPersonData}>
             Change Name
           </Button>
         </Card.Body>

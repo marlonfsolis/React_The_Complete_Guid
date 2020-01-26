@@ -15,16 +15,6 @@ function App() {
   });
   const [showPersonState, setShowPersonState] = useState(true);
 
-  const [form, setForm] = useState({
-    name: { value: "Pepe" }
-  });
-
-  const setFormFieldVal = (name, event) => {
-    let myForm = { ...form };
-    myForm[name].value = event.currentTarget.value;
-    setForm(myForm);
-  };
-
   // ** funtions ** //
 
   const deletePersonHandler = (id) => {
@@ -38,13 +28,13 @@ function App() {
     setPersonState({ persons });
   };
 
-  const changePersonNameHandler = (id, name) => {
+  const changePersonNameHandler = (id, form) => {
     let persons = [...personState.persons];
     let personIndex = persons.findIndex((p) => {
       return p.id === id;
     });
     let person = { ...persons[personIndex] };
-    person.name = name;
+    person.name = form['name'].value;
     persons[personIndex] = person;
 
     setPersonState({ persons });
@@ -64,10 +54,9 @@ function App() {
           return (
             <Person
               key={person.id}
+              id={person.id}
               name={person.name}
               age={person.age}
-              form={form}
-              setFormFieldVal={setFormFieldVal.bind(this)}
               deletePersonHandler={deletePersonHandler.bind(this, person.id)}
               changePersonNameHandler={changePersonNameHandler.bind(this, person.id)}
             />
