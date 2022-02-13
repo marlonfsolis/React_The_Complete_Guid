@@ -1,3 +1,8 @@
+## Available Scripts
+Practical example from the Udemy course "React The complete guid". We use React-Bottstrap library.
+
+
+## Getting Started
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
